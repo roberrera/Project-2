@@ -1,5 +1,6 @@
 package Classes;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -40,9 +41,24 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         return instance;
     }
 
+    public void insert(int id, String name, String desc, String address, int fave){
+        SQLiteDatabase db = getWritableDatabase(); // We now have access to the database.
+        // Equivalent of INSERT INTO games VALUES (...);
+        ContentValues values = new ContentValues();
+        values.put("id", id);
+        values.put("name", name);
+        values.put("description", desc);
+        values.put("address", address);
+        values.put("favorite", 0);
+
+        db.insert(NEIGHBORHOOD_TABLE_NAME, null, values);
+
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE neighborhood (id INTEGER PRIMARY KEY, name TEXT, year TEXT)"); // Creates the database for Games.
+        db.execSQL("CREATE TABLE " + NEIGHBORHOOD_TABLE_NAME + " (id INTEGER PRIMARY KEY, " +
+                "name TEXT, year TEXT)"); // Creates the database for Games.
     }
 
     @Override
