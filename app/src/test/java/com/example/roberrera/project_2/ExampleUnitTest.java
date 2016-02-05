@@ -1,4 +1,4 @@
-package com.example.roberrera.project2;
+package com.example.roberrera.project_2;
 
 import org.junit.Test;
 
