@@ -42,7 +42,11 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void addPlace(String name, String desc, String address, int fave){
+=======
+    public void insert(int id, String name, String desc, String address, int fave){
+>>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
 =======
     public void insert(int id, String name, String desc, String address, int fave){
 >>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
@@ -62,6 +66,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         String CREATE_NEIGHBORHOOD_TABLE =
                 "CREATE TABLE " + NEIGHBORHOOD_TABLE_NAME + " ( " +
                         COL_ID + " INTEGER PRIMARY KEY, " +
@@ -76,6 +81,10 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE neighborhood (id INTEGER PRIMARY KEY, name TEXT, year TEXT)"); // Creates the database for Games.
 >>>>>>> parent of 8aa7103... Did more setup of layouts and database
+=======
+        db.execSQL("CREATE TABLE " + NEIGHBORHOOD_TABLE_NAME + " (id INTEGER PRIMARY KEY, " +
+                "name TEXT, year TEXT)"); // Creates the database for Games.
+>>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
 =======
         db.execSQL("CREATE TABLE " + NEIGHBORHOOD_TABLE_NAME + " (id INTEGER PRIMARY KEY, " +
                 "name TEXT, year TEXT)"); // Creates the database for Games.

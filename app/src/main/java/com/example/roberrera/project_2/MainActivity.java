@@ -14,6 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+
+import Classes.Neighborhood;
+import Classes.NeighborhoodSQLOpenHelper;
+
+>>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -28,7 +36,10 @@ public class MainActivity extends AppCompatActivity
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
         // Setup for navigation drawer
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -43,6 +54,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         //
 
+<<<<<<< HEAD
+>>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
+=======
 >>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
         // Creating list view of favorites, to appear in navigation drawer.
         mFavesListView = (ListView) findViewById(R.id.favorites_list);
@@ -166,6 +180,70 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
 >>>>>>> parent of 8aa7103... Did more setup of layouts and database
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        // TODO: Update these instructions to point to favorites from the database.
+
+//        if (id == R.id.nav_camera) {
+//            // Handle the camera action
+//        } else if (id == R.id.nav_gallery) {
+//
+//        } else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
+
+        if (id == R.id.favorites_list){
+            mFavesListView.setAdapter(mFavesAdapter);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 

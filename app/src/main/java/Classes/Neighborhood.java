@@ -27,6 +27,7 @@ public class Neighborhood {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public String getmDescription() {
         return mDescription;
     }
@@ -69,5 +70,9 @@ public class Neighborhood {
 =======
 >>>>>>> parent of 8aa7103... Did more setup of layouts and database
 =======
+>>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
+=======
+
+
 >>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
 }

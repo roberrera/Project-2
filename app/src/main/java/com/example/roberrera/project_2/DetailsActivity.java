@@ -6,6 +6,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+<<<<<<< HEAD
+=======
+
+import Classes.NeighborhoodSQLOpenHelper;
+>>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -23,6 +28,7 @@ public class DetailsActivity extends AppCompatActivity {
         setTitle(NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getLocationNameByID(
                 Integer.parseInt(NeighborhoodSQLOpenHelper.COL_ID)));
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> parent of 8aa7103... Did more setup of layouts and database
@@ -52,6 +58,9 @@ public class DetailsActivity extends AppCompatActivity {
 >>>>>>> parent of 8aa7103... Did more setup of layouts and database
             }
         });
+=======
+// TODO Add back FAB onClickListener.
+>>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
 =======
 // TODO Add back FAB onClickListener.
 >>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
