@@ -67,9 +67,9 @@ public class MainActivity extends AppCompatActivity
         helper.getReadableDatabase();
 
         // Adding entries to the database
-        helper.insert(1, "General Assembly", DetailsActivity.mGADesc, "10 E. 21st Street\nNew York, NY", 0);
-        helper.insert(2, "Eataly", DetailsActivity.mEatalyDesc, "200 Fifth Avenue\nNew York, NY", 0);
-        helper.insert(3, "Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
+        helper.addPlace("General Assembly", DetailsActivity.mGADesc, "10 E. 21st Street\nNew York, NY", 0);
+        helper.addPlace("Eataly", DetailsActivity.mEatalyDesc, "200 Fifth Avenue\nNew York, NY", 0);
+        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
 
 
         mListView = (ListView) findViewById(R.id.searchResultsListView);
