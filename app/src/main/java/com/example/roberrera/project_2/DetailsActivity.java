@@ -7,7 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+import android.widget.ImageView;
+>>>>>>> branch3
 
 import Classes.NeighborhoodSQLOpenHelper;
 >>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
@@ -30,13 +34,19 @@ public class DetailsActivity extends AppCompatActivity {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 8aa7103... Did more setup of layouts and database
+=======
+>>>>>>> branch3
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> branch3
                 // Set up a flag so we can tell whether the item has been added to favorites.
 //                boolean flag = false;
 //                ImageView faveButton = (ImageView) findViewById(R.id.favorites_icon);
@@ -52,6 +62,7 @@ public class DetailsActivity extends AppCompatActivity {
 //                }
 //                Snackbar.make(view, "Favorites updated", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
+<<<<<<< HEAD
 =======
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -64,5 +75,11 @@ public class DetailsActivity extends AppCompatActivity {
 =======
 // TODO Add back FAB onClickListener.
 >>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
+=======
+            }
+        });
+>>>>>>> branch3
     }
+
+
 }

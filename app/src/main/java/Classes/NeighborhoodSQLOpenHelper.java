@@ -13,19 +13,21 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = NeighborhoodSQLOpenHelper.class.getCanonicalName();
 
     private static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "NEIGHBORHOOD_DB";
-    public static final String NEIGHBORHOOD_TABLE_NAME = "NEIGHBORHOOD_LIST";
+    private static final String DATABASE_NAME = "neighborhood_DB";
+    private static final String NEIGHBORHOOD_TABLE_NAME = "neighborhood_list";
 
     public static final String COL_ID = "_id";
-    public static final String COL_PLACE_NAME = "PLACE_NAME";
-    public static final String COL_DESC = "DESCRIPTION";
-    public static final String COL_ADDRESS = "ADDRESS";
-    public static final int COL_FAVE = 0; // Default is false.
+    public static final String COL_PLACE_NAME = "place_name";
+    public static final String COL_DESC = "description";
+    public static final String COL_ADDRESS = "address";
+    public static final String COL_FAVE = "favorite";
+
     public static final String[] NEIGHBORHOOD_COLUMNS = {
             COL_ID,
             COL_PLACE_NAME,
             COL_DESC,
-            COL_ADDRESS};
+            COL_ADDRESS,
+            COL_FAVE};
 
     // Constructor for the database helper.
     public NeighborhoodSQLOpenHelper(Context context) {
@@ -43,6 +45,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void addPlace(String name, String desc, String address, int fave){
 =======
     public void insert(int id, String name, String desc, String address, int fave){
@@ -50,16 +53,21 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
 =======
     public void insert(int id, String name, String desc, String address, int fave){
 >>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
+=======
+    public void addPlace(String name, String desc, String address, int fave){
+>>>>>>> branch3
         SQLiteDatabase db = getWritableDatabase(); // We now have access to the database.
-        // Equivalent of INSERT INTO games VALUES (...);
+
         ContentValues values = new ContentValues();
-        values.put("id", id);
+        Neighborhood neighborhood = Neighborhood.instance;
+//        values.put("id", neighborhood.getId());
         values.put("name", name);
         values.put("description", desc);
         values.put("address", address);
-        values.put("favorite", 0);
+        values.put("favorite", fave);
 
         db.insert(NEIGHBORHOOD_TABLE_NAME, null, values);
+        db.close();
 
     }
 
@@ -67,6 +75,9 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> branch3
         String CREATE_NEIGHBORHOOD_TABLE =
                 "CREATE TABLE " + NEIGHBORHOOD_TABLE_NAME + " ( " +
                         COL_ID + " INTEGER PRIMARY KEY, " +
@@ -76,6 +87,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
                         COL_FAVE + " TEXT)";
 
         db.execSQL(CREATE_NEIGHBORHOOD_TABLE); // Creates the database.
+<<<<<<< HEAD
 =======
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -89,6 +101,8 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + NEIGHBORHOOD_TABLE_NAME + " (id INTEGER PRIMARY KEY, " +
                 "name TEXT, year TEXT)"); // Creates the database for Games.
 >>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
+=======
+>>>>>>> branch3
     }
 
     @Override
@@ -108,6 +122,10 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null );
+
+        if (cursor != null){
+            cursor.moveToFirst();
+        }
 
         return cursor;
     }

@@ -28,6 +28,9 @@ public class Neighborhood {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> branch3
     public String getmDescription() {
         return mDescription;
     }
@@ -51,6 +54,7 @@ public class Neighborhood {
     public void setmAddress(String mAddress) {
         this.mAddress = mAddress;
     }
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
 
@@ -72,7 +76,35 @@ public class Neighborhood {
 =======
 >>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
 =======
+=======
+>>>>>>> branch3
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getmName() {
+        return mName;
+    }
+
+<<<<<<< HEAD
 >>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
 }
+=======
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public int getmFave() {
+        return mFave;
+    }
+
+    public void setmFave(int mFave) {
+        this.mFave = mFave;
+    }
+}
+>>>>>>> branch3
