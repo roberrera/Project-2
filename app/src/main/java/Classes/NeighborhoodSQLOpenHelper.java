@@ -1,5 +1,6 @@
 package Classes;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -42,20 +43,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         return instance;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     public void addPlace(String name, String desc, String address, int fave){
-=======
-    public void insert(int id, String name, String desc, String address, int fave){
->>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
-=======
-    public void insert(int id, String name, String desc, String address, int fave){
->>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
-=======
-    public void addPlace(String name, String desc, String address, int fave){
->>>>>>> branch3
         SQLiteDatabase db = getWritableDatabase(); // We now have access to the database.
 
         ContentValues values = new ContentValues();
@@ -73,11 +61,6 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> branch3
         String CREATE_NEIGHBORHOOD_TABLE =
                 "CREATE TABLE " + NEIGHBORHOOD_TABLE_NAME + " ( " +
                         COL_ID + " INTEGER PRIMARY KEY, " +
@@ -87,22 +70,6 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
                         COL_FAVE + " TEXT)";
 
         db.execSQL(CREATE_NEIGHBORHOOD_TABLE); // Creates the database.
-<<<<<<< HEAD
-=======
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE neighborhood (id INTEGER PRIMARY KEY, name TEXT, year TEXT)"); // Creates the database for Games.
->>>>>>> parent of 8aa7103... Did more setup of layouts and database
-=======
-        db.execSQL("CREATE TABLE " + NEIGHBORHOOD_TABLE_NAME + " (id INTEGER PRIMARY KEY, " +
-                "name TEXT, year TEXT)"); // Creates the database for Games.
->>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
-=======
-        db.execSQL("CREATE TABLE " + NEIGHBORHOOD_TABLE_NAME + " (id INTEGER PRIMARY KEY, " +
-                "name TEXT, year TEXT)"); // Creates the database for Games.
->>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
-=======
->>>>>>> branch3
     }
 
     @Override

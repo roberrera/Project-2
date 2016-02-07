@@ -25,12 +25,6 @@ public class Neighborhood {
         this.mFave = favorite;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> branch3
     public String getmDescription() {
         return mDescription;
     }
@@ -54,30 +48,6 @@ public class Neighborhood {
     public void setmAddress(String mAddress) {
         this.mAddress = mAddress;
     }
-<<<<<<< HEAD
-=======
->>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
-
-
-<<<<<<< HEAD
-    public void setmName(String mName) {
-        this.mName = mName;
-    }
-
-    public int getmFave() {
-        return mFave;
-    }
-
-    public void setmFave(int mFave) {
-        this.mFave = mFave;
-    }
-=======
->>>>>>> parent of 8aa7103... Did more setup of layouts and database
-=======
->>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
-=======
-=======
->>>>>>> branch3
 
     public int getId() {
         return id;
@@ -91,10 +61,6 @@ public class Neighborhood {
         return mName;
     }
 
-<<<<<<< HEAD
->>>>>>> parent of 15ddd7d... Removed navigation drawer for now--it was overcomplicating things
-}
-=======
     public void setmName(String mName) {
         this.mName = mName;
     }
@@ -107,4 +73,3 @@ public class Neighborhood {
         this.mFave = mFave;
     }
 }
->>>>>>> branch3
