@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 
 import Classes.NeighborhoodSQLOpenHelper;
 
@@ -54,6 +55,28 @@ public class DetailsActivity extends AppCompatActivity {
         setTitle(NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getLocationNameByID(
                 Integer.parseInt(NeighborhoodSQLOpenHelper.COL_ID)));
 
-// TODO Add back FAB onClickListener.
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Set up a flag so we can tell whether the item has been added to favorites.
+//                boolean flag = false;
+//                ImageView faveButton = (ImageView) findViewById(R.id.favorites_icon);
+//
+//                if (flag == false){
+//                    // Change heart icon to be a filled heart and add item to the favorites list.
+//                    faveButton.setImageResource(R.drawable.favorite_full);
+//                    // TODO: Set COL_FAVE to 1 to add to favorites list.
+//                } else {
+//                    // Change heart icon to be empty and remove from the favorites list.
+//                    faveButton.setImageResource(R.drawable.favorite_empty);
+//                    // TODO: Set COL_FAVE to 0 to take off of favorites list.
+//                }
+//                Snackbar.make(view, "Favorites updated", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+            }
+        });
     }
+
+
 }

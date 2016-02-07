@@ -25,6 +25,51 @@ public class Neighborhood {
         this.mFave = favorite;
     }
 
+    public String getmDescription() {
+        return mDescription;
+    }
 
+    public void setmDescription(String mDescription) {
+        this.mDescription = mDescription;
+    }
 
+    public ImageView getmPhoto() {
+        return mPhoto;
+    }
+
+    public void setmPhoto(ImageView mPhoto) {
+        this.mPhoto = mPhoto;
+    }
+
+    public String getmAddress() {
+        return mAddress;
+    }
+
+    public void setmAddress(String mAddress) {
+        this.mAddress = mAddress;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getmName() {
+        return mName;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public int getmFave() {
+        return mFave;
+    }
+
+    public void setmFave(int mFave) {
+        this.mFave = mFave;
+    }
 }
