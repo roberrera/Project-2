@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.ImageView;
 
+import com.example.roberrera.project_2.R;
+
 /**
  * Created by Rob on 2/2/16.
  */
@@ -179,6 +181,36 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
 
         db.update(NEIGHBORHOOD_TABLE_NAME, values, selection, selectionArgs);
         db.close();
+    }
+
+    public Cursor searchPlaces(String query){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(NEIGHBORHOOD_TABLE_NAME, // a. table
+                NEIGHBORHOOD_COLUMNS, // b. column names
+                COL_PLACE_NAME + " LIKE ?", // c. selections
+                new String[]{"%" + query + "%"}, // d. selections args
+                null, // e. group by
+                null, // f. having
+                null, // g. order by
+                null); // h. limit
+
+        return cursor;
+    }
+
+    // Cases for which photo to use based on which column name is being pulled by the details activity.
+    public static int getDrawableValue(String image){
+        switch(image){
+            case "Starbucks":
+                return R.drawable.starbucks;
+            case "Eataly":
+                return R.drawable.eataly;
+            case "General Assembly":
+                return R.drawable.generalassembly;
+            default:
+                return 0;
+        }
     }
 
 }

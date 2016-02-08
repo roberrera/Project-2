@@ -85,7 +85,7 @@ public class DetailsActivity extends AppCompatActivity {
         String placeAddress = helper.getLocationAddressByID(id);
         String placeDesc = helper.getLocationDescByID(id);
 
-        mImage.setImageResource(getDrawableValue(helper.getLocationNameByID(id)));
+        mImage.setImageResource(NeighborhoodSQLOpenHelper.getDrawableValue(helper.getLocationNameByID(id)));
         mAddress.setText(placeAddress);
         mDesc.setText(placeDesc);
 
@@ -124,19 +124,5 @@ public class DetailsActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    // Cases for which photo to use based on which column name is being pulled by the details activity.
-    private int getDrawableValue(String image){
-        switch(image){
-            case "Starbucks":
-                return R.drawable.starbucks;
-            case "Eataly":
-                return R.drawable.eataly;
-            case "General Assembly":
-                return R.drawable.generalassembly;
-            default:
-                return 0;
-        }
     }
 }

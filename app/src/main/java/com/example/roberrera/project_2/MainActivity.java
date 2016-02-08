@@ -1,10 +1,15 @@
 package com.example.roberrera.project_2;
 
+import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +22,7 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,13 +35,14 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView mListView;
+    CursorAdapter mCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setTitle("Neighborhood Search");
+        setTitle("Places!");
 
         // Setup for navigation drawer
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -56,7 +63,7 @@ public class MainActivity extends AppCompatActivity
 
 
         // Create helper object and make the database available to be read.
-        NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(MainActivity.this);
+        final NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(MainActivity.this);
         helper.getReadableDatabase();
 
 /*
@@ -68,7 +75,7 @@ public class MainActivity extends AppCompatActivity
 */
         // Cursor adapter setup
         final Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(MainActivity.this).getNeighborhoodList();
-        CursorAdapter cursorAdapter = new CursorAdapter(MainActivity.this, cursor, 0) {
+        mCursorAdapter = new CursorAdapter(MainActivity.this, cursor, 0) {
 
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup parent) {
@@ -82,11 +89,15 @@ public class MainActivity extends AppCompatActivity
 
                 TextView address = (TextView)view.findViewById(R.id.address_textView);
                 address.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_ADDRESS)));
+
+                ImageView image = (ImageView)view.findViewById(R.id.imageView_mainActivity);
+                image.setImageResource(helper.getDrawableValue( cursor.getString(
+                        cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)) ));
             }
         };
 
         mListView = (ListView) findViewById(R.id.searchResultsListView);
-        mListView.setAdapter(cursorAdapter);
+        mListView.setAdapter(mCursorAdapter);
 
 
         // When user taps on an item in the list, move to DetailsActivity and refer to that list
@@ -100,6 +111,8 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        handleIntent(getIntent());
     }
 
 
@@ -113,14 +126,36 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
+
+        SearchableInfo info = searchManager.getSearchableInfo( getComponentName() );
+        searchView.setSearchableInfo(info);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+    }
+
+    public void handleIntent(Intent intent){
+//        Toast.makeText(MainActivity.this, "Toast from outside if statement", Toast.LENGTH_SHORT).show();
+
+        if (Intent.ACTION_SEARCH.equals( intent.getAction() )){
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(this).searchPlaces(query);
+            mCursorAdapter.swapCursor(cursor);
+
+        }
+    }
+
+        @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -128,7 +163,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
             return true;
         }
 
