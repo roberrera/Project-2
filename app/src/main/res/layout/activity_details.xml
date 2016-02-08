@@ -14,17 +14,6 @@
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <!--<TextView-->
-            <!--android:id="@+id/address_detailsActivity"-->
-            <!--android:text="Address"-->
-            <!--android:textColor="#FFFFFF"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="10dp"-->
-            <!--android:textAlignment="viewEnd"-->
-            <!--android:layout_gravity="end"-->
-            <!--/>-->
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"

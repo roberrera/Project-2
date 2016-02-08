@@ -26,5 +26,4 @@
         android:textSize="18sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-
 </LinearLayout>

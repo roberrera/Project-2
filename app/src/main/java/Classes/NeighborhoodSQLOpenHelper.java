@@ -48,7 +48,6 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         Neighborhood neighborhood = Neighborhood.instance;
-//        values.put("id", neighborhood.getId());
         values.put(COL_PLACE_NAME, name);
         values.put(COL_DESC, desc);
         values.put(COL_ADDRESS, address);
@@ -145,20 +144,20 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         return cursor.getString(cursor.getColumnIndex(COL_DESC));
     }
 
-//    public int getFavoritesByID(int id) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        Cursor cursor = db.query(NEIGHBORHOOD_TABLE_NAME,
-//                new int[]{COL_FAVE},
-//                COL_ID + " = ?",
-//                new String[]{String.valueOf(id)},
-//                null,
-//                null,
-//                null,
-//                null );
-//
-//        cursor.moveToFirst();
-//        return cursor.getInt(cursor.getColumnIndex(COL_FAVE));
-//
-//    }
+    public int getFavoritesByID(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(NEIGHBORHOOD_TABLE_NAME,
+                new String[]{COL_FAVE},
+                COL_ID + " = ?",
+                new String[]{String.valueOf(id)},
+                null,
+                null,
+                null,
+                null );
+
+        cursor.moveToFirst();
+        return cursor.getInt(cursor.getColumnIndex(COL_FAVE));
+
+    }
 }

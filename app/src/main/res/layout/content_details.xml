@@ -8,11 +8,25 @@
     tools:context="com.example.roberrera.project_2.DetailsActivity"
     tools:showIn="@layout/activity_details">
 
-    <TextView
-        android:id="@+id/description_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/address_detailsActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:layout_margin="@dimen/text_margin"
+            />
+
+        <TextView
+            android:id="@+id/description_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_below="@id/address_detailsActivity"/>
+
+    </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

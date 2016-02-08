@@ -59,56 +59,45 @@ public class DetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Get the intent from MainActivity.
         final int id = getIntent().getIntExtra("id", -1);
 
-        NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(DetailsActivity.this);
-        helper.getReadableDatabase();
-
-//        mName = (TextView)findViewById(R.id.name_detailsActivity);
-//        mAddress = (TextView)findViewById(R.id.address_detailsActivity);
-        mDesc = (TextView)findViewById(R.id.description_textView);
-
-
-
-        final Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getNeighborhoodList();
-        CursorAdapter cursorAdapter = new CursorAdapter(DetailsActivity.this, cursor, 0) {
-
-            @Override
-            public View newView(Context context, Cursor cursor, ViewGroup parent) {
-                return LayoutInflater.from(context).inflate(R.layout.activity_details,parent,false);
-            }
-
-            @Override
-            public void bindView(View view, Context context, Cursor cursor) {
-//                String placeName = NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getLocationNameByID(id);
-//                mName.setText(placeName);
-
-                ImageView image = (ImageView)view.findViewById(R.id.place_image);
-                if (cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_DESC)).equals("Starbucks")) {
-                    image.setImageResource(R.drawable.starbucks);
-                } if (cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_DESC)).equals("General Assembly")) {
-                    image.setImageResource(R.drawable.generalassembly);
-                }
-
-                String placeDesc = NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getLocationDescByID(id);
-                mDesc.setText(placeDesc);
-
-                ImageView fab = (FloatingActionButton) findViewById(R.id.fab);
-                if (cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_FAVE) == 1){
-                    fab.setImageResource(R.drawable.favorite_full);
-                } else {
-                    fab.setImageResource(R.drawable.favorite_empty);
-                }
-
-            }
-        };
-        if (cursor != null) {
-            setTitle(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)));
+        // Set the activity title based on which item we're viewing.
+        if (NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getLocationNameByID(id) != null) {
+            setTitle(NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getLocationNameByID(id));
         } else {
             setTitle("Details");
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(DetailsActivity.this);
+
+        mAddress = (TextView)findViewById(R.id.address_textView);
+
+
+        ImageView image = (ImageView)findViewById(R.id.place_image);
+        image.setImageResource(getDrawableValue(NeighborhoodSQLOpenHelper.getInstance(
+                DetailsActivity.this).getLocationNameByID(id)));
+
+
+        mAddress = (TextView)findViewById(R.id.address_detailsActivity);
+        String placeAddress = NeighborhoodSQLOpenHelper.getInstance(
+                DetailsActivity.this).getLocationAddressByID(id);
+        mAddress.setText(placeAddress);
+
+        mDesc = (TextView)findViewById(R.id.description_textView);
+        String placeDesc = NeighborhoodSQLOpenHelper.getInstance(
+                DetailsActivity.this).getLocationDescByID(id);
+        mDesc.setText(placeDesc);
+
+        // Check if the place is also in the favorites list, and show the proper heart icon in response.
+        ImageView fab = (FloatingActionButton) findViewById(R.id.fab);
+        if (NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getFavoritesByID(id) == 1){
+            fab.setImageResource(R.drawable.favorite_full);
+        } else {
+            fab.setImageResource(R.drawable.favorite_empty);
+        }
+
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +108,7 @@ public class DetailsActivity extends AppCompatActivity {
 //                if (flag == false){
 //                    // Change heart icon to be a filled heart and add item to the favorites list.
 //                    faveButton.setImageResource(R.drawable.favorite_full);
-//                    // TODO: Set COL_FAVE to 1 to add to favorites list.
+//                    // TODO: Set COL_FAVE to 1 to add to favorites list. Add a toast for when an action is taken.
 //                } else {
 //                    // Change heart icon to be empty and remove from the favorites list.
 //                    faveButton.setImageResource(R.drawable.favorite_empty);
@@ -131,5 +120,16 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
-
+    private int getDrawableValue(String image){
+        switch(image){
+            case "Starbucks":
+                return R.drawable.starbucks;
+//            case "Eataly":
+//                return R.drawable.eataly;
+            case "General Assembly":
+                return R.drawable.generalassembly;
+            default:
+                return 0;
+        }
+    }
 }
