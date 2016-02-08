@@ -1,18 +1,22 @@
 package com.example.roberrera.project_2;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -20,7 +24,8 @@ import Classes.NeighborhoodSQLOpenHelper;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    TextView mName, mAddress, mDesc;
+    TextView mAddress, mDesc;
+    ImageView mImage;
 
     public static String mStarbucksDesc = "We’re not just passionate purveyors of coffee, but everything " +
             "else that goes with a full and rewarding coffeehouse experience. We also offer a " +
@@ -62,36 +67,32 @@ public class DetailsActivity extends AppCompatActivity {
         // Get the intent from MainActivity.
         final int id = getIntent().getIntExtra("id", -1);
 
+        final NeighborhoodSQLOpenHelper helper = NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this);
+
         // Set the activity title based on which item we're viewing.
-        if (NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getLocationNameByID(id) != null) {
-            setTitle(NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getLocationNameByID(id));
+        if (helper.getLocationNameByID(id) != null) {
+            setTitle(helper.getLocationNameByID(id));
         } else {
             setTitle("Details");
         }
 
-        NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(DetailsActivity.this);
 
-        mAddress = (TextView)findViewById(R.id.address_textView);
-
-
-        ImageView image = (ImageView)findViewById(R.id.place_image);
-        image.setImageResource(getDrawableValue(NeighborhoodSQLOpenHelper.getInstance(
-                DetailsActivity.this).getLocationNameByID(id)));
-
-
+        mImage = (ImageView)findViewById(R.id.place_image);
         mAddress = (TextView)findViewById(R.id.address_detailsActivity);
-        String placeAddress = NeighborhoodSQLOpenHelper.getInstance(
-                DetailsActivity.this).getLocationAddressByID(id);
-        mAddress.setText(placeAddress);
+        mDesc = (TextView) findViewById(R.id.description_textView);
 
-        mDesc = (TextView)findViewById(R.id.description_textView);
-        String placeDesc = NeighborhoodSQLOpenHelper.getInstance(
-                DetailsActivity.this).getLocationDescByID(id);
+
+        String placeAddress = helper.getLocationAddressByID(id);
+        String placeDesc = helper.getLocationDescByID(id);
+
+        mImage.setImageResource(getDrawableValue(helper.getLocationNameByID(id)));
+        mAddress.setText(placeAddress);
         mDesc.setText(placeDesc);
+
 
         // Check if the place is also in the favorites list, and show the proper heart icon in response.
         ImageView fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getFavoritesByID(id) == 1){
+        if (helper.getFavoritesByID(id) == 1){
             fab.setImageResource(R.drawable.favorite_full);
         } else {
             fab.setImageResource(R.drawable.favorite_empty);
@@ -101,31 +102,37 @@ public class DetailsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Set up a flag so we can tell whether the item has been added to favorites.
-//                boolean flag = false;
-//                ImageView faveButton = (ImageView) findViewById(R.id.favorites_icon);
-//
-//                if (flag == false){
-//                    // Change heart icon to be a filled heart and add item to the favorites list.
-//                    faveButton.setImageResource(R.drawable.favorite_full);
-//                    // TODO: Set COL_FAVE to 1 to add to favorites list. Add a toast for when an action is taken.
-//                } else {
-//                    // Change heart icon to be empty and remove from the favorites list.
-//                    faveButton.setImageResource(R.drawable.favorite_empty);
-//                    // TODO: Set COL_FAVE to 0 to take off of favorites list.
-//                }
-//                Snackbar.make(view, "Favorites updated", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+//                 Set up a flag so we can tell whether the item has been added to favorites.
+                ImageView faveButton = (ImageView) findViewById(R.id.fab);
+                SQLiteDatabase db = helper.getReadableDatabase();
+
+                if (helper.getFavoritesByID(id) == 0){
+                    // Change heart icon to be a filled heart and add item to the favorites list.
+                    faveButton.setImageResource(R.drawable.favorite_full);
+                    helper.updateFavoriteByID(id, 1);
+
+                    Toast.makeText(DetailsActivity.this, helper.getLocationNameByID(id)
+                            + " added to favorites", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Change heart icon to be empty and remove from the favorites list.
+                    faveButton.setImageResource(R.drawable.favorite_empty);
+                    helper.updateFavoriteByID(id, 0);
+
+                    Toast.makeText(DetailsActivity.this, helper.getLocationNameByID(id)
+                            + " removed from favorites", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
     }
 
+    // Cases for which photo to use based on which column name is being pulled by the details activity.
     private int getDrawableValue(String image){
         switch(image){
             case "Starbucks":
                 return R.drawable.starbucks;
-//            case "Eataly":
-//                return R.drawable.eataly;
+            case "Eataly":
+                return R.drawable.eataly;
             case "General Assembly":
                 return R.drawable.generalassembly;
             default:

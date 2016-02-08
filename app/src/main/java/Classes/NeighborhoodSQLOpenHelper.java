@@ -15,7 +15,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "neighborhood_DB";
-    private static final String NEIGHBORHOOD_TABLE_NAME = "neighborhood_list";
+    public static final String NEIGHBORHOOD_TABLE_NAME = "neighborhood_list";
 
     public static final String COL_ID = "_id";
     public static final String COL_PLACE_NAME = "place_name";
@@ -55,7 +55,6 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
 
         db.insert(NEIGHBORHOOD_TABLE_NAME, null, values);
         db.close();
-
     }
 
     @Override
@@ -158,6 +157,28 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
 
         cursor.moveToFirst();
         return cursor.getInt(cursor.getColumnIndex(COL_FAVE));
-
     }
+
+    public void updateFavoriteByID (int id, int newValue){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        values.put(COL_FAVE, newValue);
+
+        // Which row to update, based on the ID
+        String selection = COL_ID + " LIKE ?";
+        String[] selectionArgs = { String.valueOf(id) };
+
+        int count = db.update(
+                NEIGHBORHOOD_TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+
+        db.update(NEIGHBORHOOD_TABLE_NAME, values, selection, selectionArgs);
+        db.close();
+    }
+
 }

@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity
 /*
         // Commented out so data is not added more than once.
         // Adding entries to the database
-        helper.addPlace("General Assembly", DetailsActivity.mGADesc, "10 E. 21st Street\nNew York, NY", 1);
         helper.addPlace("Eataly", DetailsActivity.mEatalyDesc, "200 Fifth Avenue\nNew York, NY", 0);
+        helper.addPlace("General Assembly", DetailsActivity.mGADesc, "10 E. 21st Street\nNew York, NY", 1);
         helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
 */
         // Cursor adapter setup
@@ -89,7 +89,8 @@ public class MainActivity extends AppCompatActivity
         mListView.setAdapter(cursorAdapter);
 
 
-        // When user taps on an item in the list...
+        // When user taps on an item in the list, move to DetailsActivity and refer to that list
+        // item's database row based on its column ID.
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
