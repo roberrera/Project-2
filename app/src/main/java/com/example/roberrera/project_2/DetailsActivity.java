@@ -1,16 +1,26 @@
 package com.example.roberrera.project_2;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CursorAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import Classes.NeighborhoodSQLOpenHelper;
 
 public class DetailsActivity extends AppCompatActivity {
+
+    TextView mName, mAddress, mDesc;
 
     public static String mStarbucksDesc = "We’re not just passionate purveyors of coffee, but everything " +
             "else that goes with a full and rewarding coffeehouse experience. We also offer a " +
@@ -49,11 +59,54 @@ public class DetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        int id = getIntent().getIntExtra("id", -1);
+        final int id = getIntent().getIntExtra("id", -1);
+
+        NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(DetailsActivity.this);
+        helper.getReadableDatabase();
+
+//        mName = (TextView)findViewById(R.id.name_detailsActivity);
+//        mAddress = (TextView)findViewById(R.id.address_detailsActivity);
+        mDesc = (TextView)findViewById(R.id.description_textView);
 
 
-        setTitle(NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getLocationNameByID(
-                Integer.parseInt(NeighborhoodSQLOpenHelper.COL_ID)));
+
+        final Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getNeighborhoodList();
+        CursorAdapter cursorAdapter = new CursorAdapter(DetailsActivity.this, cursor, 0) {
+
+            @Override
+            public View newView(Context context, Cursor cursor, ViewGroup parent) {
+                return LayoutInflater.from(context).inflate(R.layout.activity_details,parent,false);
+            }
+
+            @Override
+            public void bindView(View view, Context context, Cursor cursor) {
+//                String placeName = NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getLocationNameByID(id);
+//                mName.setText(placeName);
+
+                ImageView image = (ImageView)view.findViewById(R.id.place_image);
+                if (cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_DESC)).equals("Starbucks")) {
+                    image.setImageResource(R.drawable.starbucks);
+                } if (cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_DESC)).equals("General Assembly")) {
+                    image.setImageResource(R.drawable.generalassembly);
+                }
+
+                String placeDesc = NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this).getLocationDescByID(id);
+                mDesc.setText(placeDesc);
+
+                ImageView fab = (FloatingActionButton) findViewById(R.id.fab);
+                if (cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_FAVE) == 1){
+                    fab.setImageResource(R.drawable.favorite_full);
+                } else {
+                    fab.setImageResource(R.drawable.favorite_empty);
+                }
+
+            }
+        };
+        if (cursor != null) {
+            setTitle(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)));
+        } else {
+            setTitle("Details");
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -49,10 +49,10 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         Neighborhood neighborhood = Neighborhood.instance;
 //        values.put("id", neighborhood.getId());
-        values.put("name", name);
-        values.put("description", desc);
-        values.put("address", address);
-        values.put("favorite", fave);
+        values.put(COL_PLACE_NAME, name);
+        values.put(COL_DESC, desc);
+        values.put(COL_ADDRESS, address);
+        values.put(COL_FAVE, fave);
 
         db.insert(NEIGHBORHOOD_TABLE_NAME, null, values);
         db.close();
