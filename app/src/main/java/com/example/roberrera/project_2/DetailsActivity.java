@@ -81,7 +81,6 @@ public class DetailsActivity extends AppCompatActivity {
         mAddress = (TextView)findViewById(R.id.address_detailsActivity);
         mDesc = (TextView) findViewById(R.id.description_textView);
 
-
         String placeAddress = helper.getLocationAddressByID(id);
         String placeDesc = helper.getLocationDescByID(id);
 
@@ -102,7 +101,6 @@ public class DetailsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                 Set up a flag so we can tell whether the item has been added to favorites.
                 ImageView faveButton = (ImageView) findViewById(R.id.fab);
                 SQLiteDatabase db = helper.getReadableDatabase();
 
@@ -120,9 +118,15 @@ public class DetailsActivity extends AppCompatActivity {
 
                     Toast.makeText(DetailsActivity.this, helper.getLocationNameByID(id)
                             + " removed from favorites", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // TODO: Show updated favorites list when back is pressed.
+
     }
 }

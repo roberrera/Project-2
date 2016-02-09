@@ -27,6 +27,8 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     public static final String COL_FAVE = "favorite";
     // TODO: Add images to the database, instead of using a switch statement.
 
+    // TODO: Add a column for user feedback, as a 5-star system using int.
+
     public static final String[] NEIGHBORHOOD_COLUMNS = {
             COL_ID,
             COL_PLACE_NAME,
@@ -47,19 +49,6 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         return instance;
     }
 
-    public void addPlace(String name, String desc, String address, int fave){
-        SQLiteDatabase db = getWritableDatabase(); // We now have access to the database.
-
-        ContentValues values = new ContentValues();
-        Neighborhood neighborhood = Neighborhood.instance;
-        values.put(COL_PLACE_NAME, name);
-        values.put(COL_DESC, desc);
-        values.put(COL_ADDRESS, address);
-        values.put(COL_FAVE, fave);
-
-        db.insert(NEIGHBORHOOD_TABLE_NAME, null, values);
-        db.close();
-    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -78,6 +67,20 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + NEIGHBORHOOD_TABLE_NAME);
         this.onCreate(db);
+    }
+
+    public void addPlace(String name, String desc, String address, int fave){
+        SQLiteDatabase db = getWritableDatabase(); // We now have access to the database.
+
+        ContentValues values = new ContentValues();
+        Neighborhood neighborhood = Neighborhood.instance;
+        values.put(COL_PLACE_NAME, name);
+        values.put(COL_DESC, desc);
+        values.put(COL_ADDRESS, address);
+        values.put(COL_FAVE, fave);
+
+        db.insert(NEIGHBORHOOD_TABLE_NAME, null, values);
+        db.close();
     }
 
     public Cursor getNeighborhoodList() {

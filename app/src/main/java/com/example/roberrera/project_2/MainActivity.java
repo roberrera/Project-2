@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         // Setup for navigation drawer
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        // TODO: Change favorites list button (currently a toolbar heart icon) to be tappable navigation drawer item?
 /*
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 */
-
-        // Create helper object and make the database available to be read.
-        final NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(MainActivity.this);
-        helper.getReadableDatabase();
 
 /*
         // Commented out so data is not added more than once.
@@ -81,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
+                // Create helper object and make the database available to be read.
+                NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(MainActivity.this);
+                helper.getReadableDatabase();
+
                 TextView placeName = (TextView)view.findViewById(R.id.name_textView);
                 placeName.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)));
 
@@ -113,17 +114,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-/*
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-*/
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -154,64 +144,32 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Handle action bar item clicks here.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
-        } if (id == R.id.action_faves) {
+        }   if (id == R.id.action_faves) {
                 Intent intent = new Intent(MainActivity.this, FavoritesListActivity.class);
                 startActivity(intent);
                 return true;
             }
-
         return super.onOptionsItemSelected(item);
     }
 
-/*    // Actions that will be taken when an item in the navigation drawer is tapped.
+    /*
+    // TODO: Decide whether to keep the navigation drawer.
+    // Actions that will be taken when an item in the navigation drawer is tapped.
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        final NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(MainActivity.this);
-        helper.getReadableDatabase();
-
-        // TODO: Update these instructions to point to favorites from the database.
-
-        // Creating list view of favorites, to appear in navigation drawer.
-        mFavesListView = (ListView) findViewById(R.id.favorites_list);
-        Cursor favesCursor = NeighborhoodSQLOpenHelper.getInstance(MainActivity.this).getNeighborhoodList();
-        mFavesAdapter = new CursorAdapter(MainActivity.this, favesCursor, 0) {
-            @Override
-            public View newView(Context context, Cursor cursor, ViewGroup parent) {
-                return LayoutInflater.from(context).inflate(R.layout.list_favorites_layout,parent,false);
-            }
-
-            @Override
-            public void bindView(View view, Context context, Cursor cursor) {
-                int id = cursor.getInt(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_FAVE));
-                TextView placeName = (TextView) view.findViewById(R.id.name_fave);
-                TextView address = (TextView) view.findViewById(R.id.address_fave);
-                ImageView image = (ImageView) view.findViewById(R.id.imageView_fave);
-
-                if (helper.getFavoritesByID(id) == 1) {
-                    placeName.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)));
-                    address.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_ADDRESS)));
-                    image.setImageResource(helper.getDrawableValue(
-                            cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME))));
-                } else {
-                    placeName.setText("No favorites yet.");
-                    address.setText("");
-                }
-            }
-        };
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }*/
+
+    }
+    */
 }

@@ -28,9 +28,6 @@ public class FavoritesListActivity extends AppCompatActivity {
 
         setTitle("Favorites");
 
-        final NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(FavoritesListActivity.this);
-        helper.getReadableDatabase();
-
         // Cursor adapter setup
         final Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(FavoritesListActivity.this).getFavorites(1);
         mFavesAdapter = new CursorAdapter(FavoritesListActivity.this, cursor, 0) {
@@ -42,6 +39,9 @@ public class FavoritesListActivity extends AppCompatActivity {
 
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
+                NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(FavoritesListActivity.this);
+                helper.getReadableDatabase();
+
                 TextView placeName = (TextView)view.findViewById(R.id.name_textView);
                 TextView address = (TextView)view.findViewById(R.id.address_textView);
                 ImageView image = (ImageView)view.findViewById(R.id.imageView_mainActivity);
@@ -69,4 +69,5 @@ public class FavoritesListActivity extends AppCompatActivity {
             }
         });
     }
+
 }
