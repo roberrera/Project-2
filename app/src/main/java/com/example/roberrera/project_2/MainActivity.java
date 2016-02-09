@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,8 +32,8 @@ import java.util.ArrayList;
 import Classes.Neighborhood;
 import Classes.NeighborhoodSQLOpenHelper;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
+//        implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView mListView;
     CursorAdapter mCursorAdapter;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         // Setup for navigation drawer
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+/*
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -56,11 +57,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-//        // Creating list view of favorites, to appear in navigation drawer.
-//        mFavesListView = (ListView) findViewById(R.id.favorites_list);
-//        mFavesListView.setAdapter(mFavesAdapter);
-
+*/
 
         // Create helper object and make the database available to be read.
         final NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(MainActivity.this);
@@ -91,13 +88,14 @@ public class MainActivity extends AppCompatActivity
                 address.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_ADDRESS)));
 
                 ImageView image = (ImageView)view.findViewById(R.id.imageView_mainActivity);
-                image.setImageResource(helper.getDrawableValue( cursor.getString(
-                        cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)) ));
+                image.setImageResource(helper.getDrawableValue( cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)) ));
             }
         };
 
         mListView = (ListView) findViewById(R.id.searchResultsListView);
         mListView.setAdapter(mCursorAdapter);
+
+        handleIntent(getIntent());
 
 
         // When user taps on an item in the list, move to DetailsActivity and refer to that list
@@ -105,6 +103,7 @@ public class MainActivity extends AppCompatActivity
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor cursor = mCursorAdapter.getCursor();
                 Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
                 cursor.moveToPosition(position);
                 intent.putExtra("id", cursor.getInt(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_ID)));
@@ -112,10 +111,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        handleIntent(getIntent());
     }
 
-
+/*
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -125,7 +123,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
+*/
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -151,7 +149,6 @@ public class MainActivity extends AppCompatActivity
             String query = intent.getStringExtra(SearchManager.QUERY);
             Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(this).searchPlaces(query);
             mCursorAdapter.swapCursor(cursor);
-
         }
     }
 
@@ -165,48 +162,56 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
-        }
+        } if (id == R.id.action_faves) {
+                Intent intent = new Intent(MainActivity.this, FavoritesListActivity.class);
+                startActivity(intent);
+                return true;
+            }
 
         return super.onOptionsItemSelected(item);
     }
 
-    // Actions that will be taken when an item in the navigation drawer is tapped.
+/*    // Actions that will be taken when an item in the navigation drawer is tapped.
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        final NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(MainActivity.this);
+        helper.getReadableDatabase();
 
         // TODO: Update these instructions to point to favorites from the database.
 
-//        if (id==R.id.favorites_list){
-//            Cursor favesCursor = NeighborhoodSQLOpenHelper.getInstance(MainActivity.this).getNeighborhoodList();
-//            if ( favesCursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_FAVE) == 1 ) {
-//                TextView favorite = (TextView) findViewById(R.id.favorites_textView);
-//                favorite.setText(favesCursor.getString(favesCursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_FAVE)));
-//            }
-//        }
+        // Creating list view of favorites, to appear in navigation drawer.
+        mFavesListView = (ListView) findViewById(R.id.favorites_list);
+        Cursor favesCursor = NeighborhoodSQLOpenHelper.getInstance(MainActivity.this).getNeighborhoodList();
+        mFavesAdapter = new CursorAdapter(MainActivity.this, favesCursor, 0) {
+            @Override
+            public View newView(Context context, Cursor cursor, ViewGroup parent) {
+                return LayoutInflater.from(context).inflate(R.layout.list_favorites_layout,parent,false);
+            }
 
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
+            @Override
+            public void bindView(View view, Context context, Cursor cursor) {
+                int id = cursor.getInt(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_FAVE));
+                TextView placeName = (TextView) view.findViewById(R.id.name_fave);
+                TextView address = (TextView) view.findViewById(R.id.address_fave);
+                ImageView image = (ImageView) view.findViewById(R.id.imageView_fave);
 
-//        if (id == R.id.favorites_list){
-//            mFavesListView.setAdapter(mFavesAdapter);
-//        }
+                if (helper.getFavoritesByID(id) == 1) {
+                    placeName.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)));
+                    address.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_ADDRESS)));
+                    image.setImageResource(helper.getDrawableValue(
+                            cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME))));
+                } else {
+                    placeName.setText("No favorites yet.");
+                    address.setText("");
+                }
+            }
+        };
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
+    }*/
 }

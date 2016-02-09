@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.roberrera.project_2.R;
@@ -24,6 +25,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     public static final String COL_DESC = "description";
     public static final String COL_ADDRESS = "address";
     public static final String COL_FAVE = "favorite";
+    // TODO: Add images to the database, instead of using a switch statement.
 
     public static final String[] NEIGHBORHOOD_COLUMNS = {
             COL_ID,
@@ -161,6 +163,24 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         return cursor.getInt(cursor.getColumnIndex(COL_FAVE));
     }
 
+    public Cursor getFavorites(int fave) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(NEIGHBORHOOD_TABLE_NAME,
+                NEIGHBORHOOD_COLUMNS,
+                COL_FAVE + " = ?",
+                new String[]{String.valueOf(fave)},
+                null,
+                null,
+                null,
+                null );
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
     public void updateFavoriteByID (int id, int newValue){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -196,6 +216,9 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
                 null, // g. order by
                 null); // h. limit
 
+        while (!cursor.isAfterLast()){
+            cursor.moveToNext();
+        }
         return cursor;
     }
 
