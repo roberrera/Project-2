@@ -139,22 +139,31 @@ public class MainActivity extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(this).searchPlaces(query);
             mCursorAdapter.swapCursor(cursor);
+            cursor.close();
         }
     }
 
         @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here.
-        int id = item.getItemId();
+            // Handle action bar item clicks here.
+            switch (item.getItemId()) {
+                case R.id.action_search:
+                    return true;
 
-        if (id == R.id.action_search) {
-            return true;
-        }   if (id == R.id.action_faves) {
-                Intent intent = new Intent(MainActivity.this, FavoritesListActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        return super.onOptionsItemSelected(item);
+                case R.id.action_faves:
+                    Intent intent = new Intent(MainActivity.this, FavoritesListActivity.class);
+                    startActivity(intent);
+                    return true;
+
+                case R.id.action_home:
+                    Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(MainActivity.this).getNeighborhoodList();
+                    mCursorAdapter.swapCursor(cursor);
+                    cursor.close();
+                    return true;
+
+                default:
+                    return super.onOptionsItemSelected(item);
+        }
     }
 
     /*
