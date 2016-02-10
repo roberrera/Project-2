@@ -5,18 +5,11 @@ import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -24,12 +17,8 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
-import Classes.Neighborhood;
 import Classes.NeighborhoodSQLOpenHelper;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Places!");
 
         // Setup for navigation drawer
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
         // TODO: Change favorites list button (currently a toolbar heart icon) to be tappable navigation drawer item?
 /*
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -139,30 +128,29 @@ public class MainActivity extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(this).searchPlaces(query);
             mCursorAdapter.swapCursor(cursor);
-            cursor.close();
         }
     }
 
-        @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here.
-            switch (item.getItemId()) {
-                case R.id.action_search:
-                    return true;
+        // Handle action bar item clicks here.
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                return true;
 
-                case R.id.action_faves:
-                    Intent intent = new Intent(MainActivity.this, FavoritesListActivity.class);
-                    startActivity(intent);
-                    return true;
+            case R.id.action_faves:
+                Intent intent = new Intent(MainActivity.this, FavoritesListActivity.class);
+                startActivity(intent);
+                return true;
 
-                case R.id.action_home:
-                    Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(MainActivity.this).getNeighborhoodList();
-                    mCursorAdapter.swapCursor(cursor);
-                    cursor.close();
-                    return true;
+            case R.id.action_home:
+                Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(MainActivity.this).getNeighborhoodList();
+                mCursorAdapter.swapCursor(cursor);
+//                cursor.close();
+                return true;
 
-                default:
-                    return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

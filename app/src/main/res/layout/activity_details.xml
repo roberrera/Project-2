@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -23,10 +23,10 @@
 
         <ImageView
             android:id="@+id/place_image"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:fitsSystemWindows="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitEnd"
+            android:adjustViewBounds="true"
             android:src="@drawable/generalassembly"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
         </ImageView>
