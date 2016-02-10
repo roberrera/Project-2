@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Commented out so data is not added more than once.
         // Adding entries to the database
-/*         helper.addPlace("Eataly", DetailsActivity.mEatalyDesc, "200 Fifth Avenue\nNew York, NY", 0, "Italian", 5);
+ /*         helper.addPlace("Eataly", DetailsActivity.mEatalyDesc, "200 Fifth Avenue\nNew York, NY", 0, "Italian", 5);
         helper.addPlace("General Assembly", DetailsActivity.mGADesc, "10 E. 21st Street\nNew York, NY", 1, "School", 0);
         helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0, "Cafe", 0);
         helper.addPlace("Maison-Kayser Flatiron", DetailsActivity.mMaisonDesc, "921 Broadway\nNew York, NY", 0, "Bakery/Cafe", 4);
-       helper.addPlace("Mozzarellis", DetailsActivity.mMozzarellisDesc, "38 E. 23rd Street\nNew York, NY", 0, "Pizzeria", 4);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
+       helper.addPlace("Mozzarelli's", DetailsActivity.mMozzarellisDesc, "38 E. 23rd Street\nNew York, NY", 0, "Pizzeria", 4);
+       helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
         helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
         helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
         helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 address.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_ADDRESS)));
 
                 ImageView image = (ImageView)view.findViewById(R.id.imageView_mainActivity);
-                image.setImageResource(Neighborhood.getDrawableValue(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME))));
+                image.setImageResource(Neighborhood.getDrawableValue(cursor.getString(
+                        cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME))));
             }
         };
 

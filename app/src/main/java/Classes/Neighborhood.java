@@ -86,7 +86,7 @@ public class Neighborhood {
                 return R.drawable.generalassembly;
             case "Maison-Kayser Flatiron":
                 return R.drawable.maison;
-            case "Mozzarellis":
+            case "Mozzarelli's":
                 return R.drawable.mozzarellis;
             default:
                 return 0;
