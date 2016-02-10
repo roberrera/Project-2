@@ -289,20 +289,4 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    // Cases for which photo to use based on which column name is being pulled by the details activity.
-    public static int getDrawableValue(String image){
-        switch(image){
-            case "Starbucks":
-                return R.drawable.starbucks;
-            case "Eataly":
-                return R.drawable.eataly;
-            case "General Assembly":
-                return R.drawable.generalassembly;
-            case "Maison-Kayser Flatiron":
-                return R.drawable.maison;
-            default:
-                return 0;
-        }
-    }
-
 }

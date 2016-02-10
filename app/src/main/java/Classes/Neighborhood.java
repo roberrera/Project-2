@@ -2,6 +2,8 @@ package Classes;
 
 import android.widget.ImageView;
 
+import com.example.roberrera.project_2.R;
+
 /**
  * Created by Rob on 2/2/16.
  */
@@ -71,5 +73,23 @@ public class Neighborhood {
 
     public void setmFave(int mFave) {
         this.mFave = mFave;
+    }
+
+    // Cases for which photo to use based on which column name is being pulled by the details activity.
+    public static int getDrawableValue(String image){
+        switch(image){
+            case "Starbucks":
+                return R.drawable.starbucks;
+            case "Eataly":
+                return R.drawable.eataly;
+            case "General Assembly":
+                return R.drawable.generalassembly;
+            case "Maison-Kayser Flatiron":
+                return R.drawable.maison;
+            case "Mozzarellis":
+                return R.drawable.mozzarellis;
+            default:
+                return 0;
+        }
     }
 }

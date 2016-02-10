@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import Classes.Neighborhood;
 import Classes.NeighborhoodSQLOpenHelper;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
 /*         helper.addPlace("Eataly", DetailsActivity.mEatalyDesc, "200 Fifth Avenue\nNew York, NY", 0, "Italian", 5);
         helper.addPlace("General Assembly", DetailsActivity.mGADesc, "10 E. 21st Street\nNew York, NY", 1, "School", 0);
         helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0, "Cafe", 0);
-        helper.addPlace("Maison-Kayser Flatiron", DetailsActivity.mMaison, "921 Broadway\nNew York, NY", 0, "Bakery/Cafe", 4);
-       helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
+        helper.addPlace("Maison-Kayser Flatiron", DetailsActivity.mMaisonDesc, "921 Broadway\nNew York, NY", 0, "Bakery/Cafe", 4);
+       helper.addPlace("Mozzarellis", DetailsActivity.mMozzarellisDesc, "38 E. 23rd Street\nNew York, NY", 0, "Pizzeria", 4);
         helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
         helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
         helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 address.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_ADDRESS)));
 
                 ImageView image = (ImageView)view.findViewById(R.id.imageView_mainActivity);
-                image.setImageResource(helper.getDrawableValue( cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)) ));
+                image.setImageResource(Neighborhood.getDrawableValue(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME))));
             }
         };
 

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import Classes.Neighborhood;
 import Classes.NeighborhoodSQLOpenHelper;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -51,13 +52,24 @@ public class DetailsActivity extends AppCompatActivity {
             "that transforms thinkers into creators through education in technology, business " +
             "and design at fifteen campuses across four continents.";
 
-    public static String mMaison = "Founded by Eric Kayser in Paris in 1996, Maison Kayser is an" +
+    public static String mMaisonDesc = "Founded by Eric Kayser in Paris in 1996, Maison Kayser is an" +
             " authentic artisanal French Boulangerie, meaning that bread and other baked goods" +
             " are mixed and baked on-site all day long.\n" +
             " \n" +"Recognized as one of the most talented artisan bakers of his generation, " +
             "Eric Kayser has built his reputation on his passion for bread, the quality of his " +
             "products and his incredible skill to combine authenticity and innovation in the world " +
             "of French artisanal bakeries.";
+
+    public static String mMozzarellisDesc = "Mozzarellis has the best tasting gluten free pizza " +
+            "in New York City. Creating a gluten free pizza crust that tastes like the real thing " +
+            "is extremely difficult. Why? Because gluten free flours such as rice flour, " +
+            "sorghum, garbanzo, tapioca…all lack gluten the protein in wheat flour that " +
+            "gives pizza crust its elasticity and texture. It’s not surprising that many gluten " +
+            "free pizza crusts are dense and heavy and resemble nothing of its gluten " +
+            "counterpart except maybe the round shape. This is not the case at Mozzarellis " +
+            "one of the first NYC restaurants to offer gluten free pizza by the slice. " +
+            "Today, Mozzarellis sells gluten free pizza crust, gluten free breadcrumbs " +
+            "and baked goods throughout the U.S.";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +101,7 @@ public class DetailsActivity extends AppCompatActivity {
         String placeDesc = helper.getLocationDescByID(id);
         String placeType = helper.getTypeByID(id);
 
-        mImage.setImageResource(NeighborhoodSQLOpenHelper.getDrawableValue(helper.getLocationNameByID(id)));
+        mImage.setImageResource(Neighborhood.getDrawableValue(helper.getLocationNameByID(id)));
         mAddress.setText(placeAddress);
         mDesc.setText(placeDesc);
         mType.setText(placeType);
@@ -140,10 +152,4 @@ public class DetailsActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        // TODO: Show updated favorites list when back is pressed.
-
-    }
 }

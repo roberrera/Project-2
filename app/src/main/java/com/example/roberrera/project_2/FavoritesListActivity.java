@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import Classes.Neighborhood;
 import Classes.NeighborhoodSQLOpenHelper;
 
 public class FavoritesListActivity extends AppCompatActivity {
@@ -51,8 +52,8 @@ public class FavoritesListActivity extends AppCompatActivity {
 
                 placeName.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)));
                 address.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_ADDRESS)));
-                image.setImageResource(helper.getDrawableValue(
-                        cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)) ));
+                image.setImageResource(Neighborhood.getDrawableValue(
+                        cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME))));
             }
         };
 
