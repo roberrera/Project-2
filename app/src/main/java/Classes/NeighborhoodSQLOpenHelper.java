@@ -186,7 +186,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                null );
+                null);
 
         if (cursor != null) {
             cursor.moveToFirst();
@@ -271,13 +271,14 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     }
 
     public Cursor searchPlaces(String query){
+//        String[] splitQuery = query.split(" ");
 
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(NEIGHBORHOOD_TABLE_NAME, // a. table
                 NEIGHBORHOOD_COLUMNS, // b. column names
-                COL_PLACE_NAME + " OR " + COL_TYPE + " LIKE ?", // c. selections
-                new String[]{"%" + query + "%"}, // d. selections args
+                COL_PLACE_NAME + " LIKE ?" + " OR " + COL_TYPE + " LIKE ?" + " OR " + COL_ADDRESS + " LIKE ?", // c. selections
+                new String[]{"%" + query + "%", "%" + query + "%", "%" + query + "%"}, // d. selections args
                 null, // e. group by
                 null, // f. having
                 null, // g. order by
