@@ -25,16 +25,22 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     public static final String COL_DESC = "description";
     public static final String COL_ADDRESS = "address";
     public static final String COL_FAVE = "favorite";
+    public static final String COL_TYPE = "type";
+    // TODO: Add a column for user feedback, as a 5-star system using int.
+    public static final String COL_RATING = "rating";
+
     // TODO: Add images to the database, instead of using a switch statement.
 
-    // TODO: Add a column for user feedback, as a 5-star system using int.
+
 
     public static final String[] NEIGHBORHOOD_COLUMNS = {
             COL_ID,
             COL_PLACE_NAME,
             COL_DESC,
             COL_ADDRESS,
-            COL_FAVE};
+            COL_FAVE,
+            COL_TYPE,
+            COL_RATING};
 
     // Constructor for the database helper.
     public NeighborhoodSQLOpenHelper(Context context) {
@@ -58,7 +64,9 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
                         COL_PLACE_NAME + " TEXT, " +
                         COL_DESC + " TEXT, " +
                         COL_ADDRESS + " TEXT, " +
-                        COL_FAVE + " TEXT)";
+                        COL_FAVE + " TEXT, " +
+                        COL_TYPE + " TEXT, " +
+                        COL_RATING + " TEXT)";
 
         db.execSQL(CREATE_NEIGHBORHOOD_TABLE); // Creates the database.
     }
@@ -69,7 +77,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-    public void addPlace(String name, String desc, String address, int fave){
+    public void addPlace(String name, String desc, String address, int fave, String type, int rating){
         SQLiteDatabase db = getWritableDatabase(); // We now have access to the database.
 
         ContentValues values = new ContentValues();
@@ -78,6 +86,8 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         values.put(COL_DESC, desc);
         values.put(COL_ADDRESS, address);
         values.put(COL_FAVE, fave);
+        values.put(COL_TYPE, type);
+        values.put(COL_RATING, rating);
 
         db.insert(NEIGHBORHOOD_TABLE_NAME, null, values);
         db.close();
@@ -206,13 +216,67 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public int getRatingByID(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(NEIGHBORHOOD_TABLE_NAME,
+                new String[]{COL_RATING},
+                COL_ID + " = ?",
+                new String[]{String.valueOf(id)},
+                null,
+                null,
+                null,
+                null);
+
+        cursor.moveToFirst();
+        return cursor.getInt(cursor.getColumnIndex(COL_RATING));
+    }
+
+    public void updateRatingByID (int id, float newValue){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        values.put(COL_RATING, newValue);
+
+        // Which row to update, based on the ID
+        String selection = COL_ID + " LIKE ?";
+        String[] selectionArgs = { String.valueOf(id) };
+
+        int count = db.update(
+                NEIGHBORHOOD_TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+
+        db.update(NEIGHBORHOOD_TABLE_NAME, values, selection, selectionArgs);
+        db.close();
+    }
+
+    public String getTypeByID(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(NEIGHBORHOOD_TABLE_NAME,
+                new String[]{COL_TYPE},
+                COL_ID + " = ?",
+                new String[]{String.valueOf(id)},
+                null,
+                null,
+                null,
+                null);
+
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndex(COL_TYPE));
+    }
+
     public Cursor searchPlaces(String query){
 
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(NEIGHBORHOOD_TABLE_NAME, // a. table
                 NEIGHBORHOOD_COLUMNS, // b. column names
-                COL_PLACE_NAME + " LIKE ?", // c. selections
+                COL_PLACE_NAME + " OR " + COL_TYPE + " LIKE ?", // c. selections
                 new String[]{"%" + query + "%"}, // d. selections args
                 null, // e. group by
                 null, // f. having
@@ -234,6 +298,8 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
                 return R.drawable.eataly;
             case "General Assembly":
                 return R.drawable.generalassembly;
+            case "Maison-Kayser Flatiron":
+                return R.drawable.maison;
             default:
                 return 0;
         }

@@ -1,20 +1,13 @@
 package com.example.roberrera.project_2;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +17,9 @@ import Classes.NeighborhoodSQLOpenHelper;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    TextView mAddress, mDesc;
+    TextView mAddress, mDesc, mType;
     ImageView mImage;
+    RatingBar mRating;
 
     public static String mStarbucksDesc = "We’re not just passionate purveyors of coffee, but everything " +
             "else that goes with a full and rewarding coffeehouse experience. We also offer a " +
@@ -57,6 +51,14 @@ public class DetailsActivity extends AppCompatActivity {
             "that transforms thinkers into creators through education in technology, business " +
             "and design at fifteen campuses across four continents.";
 
+    public static String mMaison = "Founded by Eric Kayser in Paris in 1996, Maison Kayser is an" +
+            " authentic artisanal French Boulangerie, meaning that bread and other baked goods" +
+            " are mixed and baked on-site all day long.\n" +
+            " \n" +"Recognized as one of the most talented artisan bakers of his generation, " +
+            "Eric Kayser has built his reputation on his passion for bread, the quality of his " +
+            "products and his incredible skill to combine authenticity and innovation in the world " +
+            "of French artisanal bakeries.";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,14 +81,20 @@ public class DetailsActivity extends AppCompatActivity {
 
         mImage = (ImageView)findViewById(R.id.place_image);
         mAddress = (TextView)findViewById(R.id.address_detailsActivity);
+        mType = (TextView)findViewById(R.id.type_detailsActivity);
         mDesc = (TextView) findViewById(R.id.description_textView);
+        mRating = (RatingBar)findViewById(R.id.ratingBar);
 
         String placeAddress = helper.getLocationAddressByID(id);
         String placeDesc = helper.getLocationDescByID(id);
+        String placeType = helper.getTypeByID(id);
 
         mImage.setImageResource(NeighborhoodSQLOpenHelper.getDrawableValue(helper.getLocationNameByID(id)));
         mAddress.setText(placeAddress);
         mDesc.setText(placeDesc);
+        mType.setText(placeType);
+        // Gets the stored rating for the current place.
+        mRating.setRating(helper.getRatingByID(id));
 
 
         // Check if the place is also in the favorites list, and show the proper heart icon in response.
@@ -121,6 +129,15 @@ public class DetailsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        mRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                helper.updateRatingByID(id, rating);
+                Toast.makeText(DetailsActivity.this, "Rated " + rating + " stars", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
