@@ -5,17 +5,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -59,6 +58,9 @@ public class FavoritesListActivity extends AppCompatActivity {
                 address.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_ADDRESS)));
                 image.setImageResource(Neighborhood.getDrawableValue(
                         cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME))));
+//                image.setImageResource(cursor.getInt(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_IMAGE)));
+//                Log.d("FAVORITES ACTIVITY", "COL_IMAGE = " + cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_IMAGE));
+
             }
         };
 
@@ -77,6 +79,24 @@ public class FavoritesListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+//        mFavesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                Cursor cursor = mFavesAdapter.getCursor();
+//                NeighborhoodSQLOpenHelper helper = NeighborhoodSQLOpenHelper.getInstance(FavoritesListActivity.this);
+//                int colID = cursor.getInt(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_ID));
+//
+//                helper.updateFavoriteByID(colID, 0);
+//
+//                Toast.makeText(FavoritesListActivity.this, helper.getLocationNameByID(colID)
+//                        + " removed from favorites", Toast.LENGTH_SHORT).show();
+//                mFavesAdapter.swapCursor(cursor);
+//                mFavesAdapter.notifyDataSetChanged();
+//
+//                return true;
+//            }
+//        });
 
     }
 

@@ -88,8 +88,19 @@ public class Neighborhood {
                 return R.drawable.maison;
             case "Mozzarelli's":
                 return R.drawable.mozzarellis;
+            case "Best Buy":
+                return R.drawable.bestbuy;
+            case "Brandy Library":
+                return R.drawable.brandylibrary;
+            case "Duane Reade":
+                return R.drawable.duanereade;
+            case "Maysville":
+                return R.drawable.maysville;
+            case "Sweetgreen":
+                return R.drawable.sweetgreen;
             default:
                 return 0;
         }
     }
+
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
                 ImageView image = (ImageView)view.findViewById(R.id.imageView_mainActivity);
                 image.setImageResource(Neighborhood.getDrawableValue(cursor.getString(
                         cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME))));
+//                image.setImageResource(cursor.getInt(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_IMAGE)));
+//                Log.d("MAINACTIVITY", "COL_IMAGE = " + cursor.getInt(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_IMAGE)));
+
             }
         };
 

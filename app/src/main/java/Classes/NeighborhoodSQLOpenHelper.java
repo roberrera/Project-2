@@ -27,9 +27,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     public static final String COL_FAVE = "favorite";
     public static final String COL_TYPE = "type";
     public static final String COL_RATING = "rating";
-
-    // TODO: Add images to the database, instead of using a switch statement.
-
+//    public static final String COL_IMAGE = "placeimage";
 
 
     public static final String[] NEIGHBORHOOD_COLUMNS = {
@@ -87,6 +85,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         values.put(COL_FAVE, fave);
         values.put(COL_TYPE, type);
         values.put(COL_RATING, rating);
+//        values.put(COL_IMAGE, image);
 
         db.insert(NEIGHBORHOOD_TABLE_NAME, null, values);
         db.close();
@@ -268,6 +267,22 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         return cursor.getString(cursor.getColumnIndex(COL_TYPE));
     }
+//
+//    public int getImageByID(int id) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.query(NEIGHBORHOOD_TABLE_NAME,
+//                new String[]{COL_IMAGE},
+//                COL_ID + " = ?",
+//                new String[]{String.valueOf(id)},
+//                null,
+//                null,
+//                null,
+//                null );
+//
+//        cursor.moveToFirst();
+//        return cursor.getInt(cursor.getColumnIndex(COL_IMAGE));
+//    }
 
     public Cursor searchPlaces(String query){
 //        String[] splitQuery = query.split(" ");
