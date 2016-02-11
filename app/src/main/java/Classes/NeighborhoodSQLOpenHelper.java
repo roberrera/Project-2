@@ -17,16 +17,15 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = NeighborhoodSQLOpenHelper.class.getCanonicalName();
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "neighborhood_DB";
-    public static final String NEIGHBORHOOD_TABLE_NAME = "neighborhood_list";
+    private static final String DATABASE_NAME = "NeighborhoodDB.db";
+    public static final String NEIGHBORHOOD_TABLE_NAME = "neighborhood_table";
 
     public static final String COL_ID = "_id";
-    public static final String COL_PLACE_NAME = "place_name";
+    public static final String COL_PLACE_NAME = "placename";
     public static final String COL_DESC = "description";
     public static final String COL_ADDRESS = "address";
     public static final String COL_FAVE = "favorite";
     public static final String COL_TYPE = "type";
-    // TODO: Add a column for user feedback, as a 5-star system using int.
     public static final String COL_RATING = "rating";
 
     // TODO: Add images to the database, instead of using a switch statement.
@@ -277,6 +276,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(NEIGHBORHOOD_TABLE_NAME, // a. table
                 NEIGHBORHOOD_COLUMNS, // b. column names
+                // To search across place name, type of place, and the address, we create three queries.
                 COL_PLACE_NAME + " LIKE ?" + " OR " + COL_TYPE + " LIKE ?" + " OR " + COL_ADDRESS + " LIKE ?", // c. selections
                 new String[]{"%" + query + "%", "%" + query + "%", "%" + query + "%"}, // d. selections args
                 null, // e. group by

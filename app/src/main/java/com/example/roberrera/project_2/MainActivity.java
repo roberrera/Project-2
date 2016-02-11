@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import Classes.Neighborhood;
 import Classes.NeighborhoodSQLOpenHelper;
+import Setup.DBAssetHelper;
 
 public class MainActivity extends AppCompatActivity {
 //        implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,31 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         setTitle("Places!");
 
-        // Create helper object and make the database available to be read.
-        final NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(MainActivity.this);
-        helper.getReadableDatabase();
+        DBAssetHelper dbAssetHelper = new DBAssetHelper(MainActivity.this);
+        dbAssetHelper.getReadableDatabase();
 
-        // Commented out so data is not added more than once.
-        // Adding entries to the database
- /*         helper.addPlace("Eataly", DetailsActivity.mEatalyDesc, "200 Fifth Avenue\nNew York, NY", 0, "Italian", 5);
-        helper.addPlace("General Assembly", DetailsActivity.mGADesc, "10 E. 21st Street\nNew York, NY", 1, "School", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0, "Cafe", 0);
-        helper.addPlace("Maison-Kayser Flatiron", DetailsActivity.mMaisonDesc, "921 Broadway\nNew York, NY", 0, "Bakery/Cafe", 4);
-       helper.addPlace("Mozzarelli's", DetailsActivity.mMozzarellisDesc, "38 E. 23rd Street\nNew York, NY", 0, "Pizzeria", 4);
-       helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        helper.addPlace("Starbucks", DetailsActivity.mStarbucksDesc, "14 W. 24th Street\nNew York, NY", 0);
-        */
         // Cursor adapter setup
         final Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(MainActivity.this).getNeighborhoodList();
         mCursorAdapter = new CursorAdapter(MainActivity.this, cursor, 0) {
@@ -71,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
+                // Create helper object and make the database available to be read.
+                NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(MainActivity.this);
+                helper.getReadableDatabase();
 
                 TextView placeName = (TextView)view.findViewById(R.id.name_textView);
                 placeName.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)));
