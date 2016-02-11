@@ -3,25 +3,25 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imageView_mainActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/eataly"
+        android:layout_alignTop="@+id/name_textView"
+        android:layout_alignBottom="@+id/address_textView" />
+
     <TextView
         android:id="@+id/name_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:textSize="25sp"
         android:text="Medium Text" />
-
-    <ImageView
-        android:id="@+id/imageView_mainActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitEnd"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@id/name_textView"
-        android:layout_toRightOf="@id/name_textView"
-        android:layout_alignBottom="@+id/address_textView" />
 
     <TextView
         android:id="@+id/address_textView"
@@ -32,6 +32,8 @@
         android:layout_marginBottom="10dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_below="@id/name_textView"
-        android:text="Small Text" />
+        android:text="Small Text"
+        android:textColor="#ffffff"
+        android:textStyle="bold"/>
 
 </RelativeLayout>
