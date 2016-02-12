@@ -1,5 +1,6 @@
 package com.example.roberrera.project_2;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -99,5 +100,4 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
     }
-
 }

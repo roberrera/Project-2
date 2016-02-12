@@ -96,4 +96,11 @@ public class FavoritesListActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(FavoritesListActivity.this).getFavorites(1);
+        mFavesAdapter.swapCursor(cursor);
+    }
 }

@@ -12,20 +12,19 @@ public class Neighborhood {
     public static Neighborhood instance;
 
     private String mDescription;
-    private ImageView mPhoto;
     private String mAddress;
     private int id;
     private String mName;
     private int mFave;
 
-    public Neighborhood(int id, String name, String description, ImageView photo, String address, int favorite) {
+    public Neighborhood(int id, String name, String description,  String address, int favorite) {
         this.id = id;
         this.mName = name;
         this.mDescription = description;
-        this.mPhoto = photo;
         this.mAddress = address;
         this.mFave = favorite;
     }
+
 
     public String getmDescription() {
         return mDescription;
@@ -35,13 +34,6 @@ public class Neighborhood {
         this.mDescription = mDescription;
     }
 
-    public ImageView getmPhoto() {
-        return mPhoto;
-    }
-
-    public void setmPhoto(ImageView mPhoto) {
-        this.mPhoto = mPhoto;
-    }
 
     public String getmAddress() {
         return mAddress;
