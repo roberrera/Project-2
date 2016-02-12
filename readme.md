@@ -11,5 +11,5 @@ From the home screen, there is a heart icon on the toolbar that will take the us
 Enjoy!
 
 
-![Screenshot1](Project-2/Screenshots/device-2016-02-11-233728.png)
-![Screenshot2](Project-2/Screenshots/device-2016-02-10-151651.png)
+![Screenshot1](https://github.com/roberrera/Project-2/blob/master/Screenshots/device-2016-02-11-233728.png)
+![Screenshot2](https://github.com/roberrera/Project-2/blob/master/Screenshots/device-2016-02-10-151651.png)
