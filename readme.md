@@ -8,6 +8,9 @@ _Places!_ is an Android app for searching for a, erm, nearby place. It is backed
 
 From the home screen, there is a heart icon on the toolbar that will take the user to their saved list of favorite places. If the user wants to leave the favorites list or their active search and get back to the full list of places, they can tap the overflow menu in the toolbar and tap on "Home".
 
+**Known bugs**
+ - When running the app in an emulator, it can occasionally crash with an out-of-memory error. This has not been a problem when running on a device.
+
 Enjoy!
 
 
