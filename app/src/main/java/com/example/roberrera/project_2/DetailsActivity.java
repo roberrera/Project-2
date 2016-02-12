@@ -11,8 +11,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import Classes.Neighborhood;
 import Classes.NeighborhoodSQLOpenHelper;
 
@@ -53,7 +51,6 @@ public class DetailsActivity extends AppCompatActivity {
         String placeType = helper.getTypeByID(id);
 
         mImage.setImageResource(Neighborhood.getDrawableValue(helper.getLocationNameByID(id)));
-//        mImage.setImageResource(helper.getImageByID(id));
         mAddress.setText(placeAddress);
         mDesc.setText(placeDesc);
         mType.setText(placeType);

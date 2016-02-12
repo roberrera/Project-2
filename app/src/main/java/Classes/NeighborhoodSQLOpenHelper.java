@@ -27,8 +27,6 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     public static final String COL_FAVE = "favorite";
     public static final String COL_TYPE = "type";
     public static final String COL_RATING = "rating";
-//    public static final String COL_IMAGE = "placeimage";
-
 
     public static final String[] NEIGHBORHOOD_COLUMNS = {
             COL_ID,
