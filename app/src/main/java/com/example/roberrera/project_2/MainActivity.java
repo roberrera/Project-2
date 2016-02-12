@@ -35,8 +35,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Sets the title for the activity in the title bar, instead of using the filename.
         setTitle("Places!");
 
+        // Refers the app to the database file in the assets folder.
         DBAssetHelper dbAssetHelper = new DBAssetHelper(MainActivity.this);
         dbAssetHelper.getReadableDatabase();
 
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 NeighborhoodSQLOpenHelper helper = new NeighborhoodSQLOpenHelper(MainActivity.this);
                 helper.getReadableDatabase();
 
+                // Tell the adapter what text and images to set by referring to the database columns.
                 TextView placeName = (TextView)view.findViewById(R.id.name_textView);
                 placeName.setText(cursor.getString(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME)));
 
@@ -64,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 ImageView image = (ImageView)view.findViewById(R.id.imageView_mainActivity);
                 image.setImageResource(Neighborhood.getDrawableValue(cursor.getString(
                         cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_PLACE_NAME))));
-//                image.setImageResource(cursor.getInt(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_IMAGE)));
-//                Log.d("MAINACTIVITY", "COL_IMAGE = " + cursor.getInt(cursor.getColumnIndex(NeighborhoodSQLOpenHelper.COL_IMAGE)));
-
             }
         };
 
@@ -92,9 +92,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the action bar.
         getMenuInflater().inflate(R.menu.main, menu);
 
+        // Setup for the search action.
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
 
@@ -110,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleIntent(Intent intent){
-//        Toast.makeText(MainActivity.this, "Toast from outside if statement", Toast.LENGTH_SHORT).show();
 
+        // Run the search query on the search action so results will be returned.
         if (Intent.ACTION_SEARCH.equals( intent.getAction() )){
             String query = intent.getStringExtra(SearchManager.QUERY);
             Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(this).searchPlaces(query);
@@ -121,20 +122,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here.
+
+        // Handle action bar item clicks.
         switch (item.getItemId()) {
             case R.id.action_search:
                 return true;
 
+            // The heart button opens the FavoritesListActivity.
             case R.id.action_faves:
                 Intent intent = new Intent(MainActivity.this, FavoritesListActivity.class);
                 startActivity(intent);
                 return true;
 
+            // The home button brings the user back to the full list of places.
             case R.id.action_home:
                 Cursor cursor = NeighborhoodSQLOpenHelper.getInstance(MainActivity.this).getNeighborhoodList();
                 mCursorAdapter.swapCursor(cursor);
-//                cursor.close();
                 return true;
 
             default:

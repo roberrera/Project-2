@@ -20,6 +20,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "NeighborhoodDB.db";
     public static final String NEIGHBORHOOD_TABLE_NAME = "neighborhood_table";
 
+    // Setup of database column variables.
     public static final String COL_ID = "_id";
     public static final String COL_PLACE_NAME = "placename";
     public static final String COL_DESC = "description";
@@ -70,23 +71,6 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + NEIGHBORHOOD_TABLE_NAME);
         this.onCreate(db);
-    }
-
-    public void addPlace(String name, String desc, String address, int fave, String type, int rating){
-        SQLiteDatabase db = getWritableDatabase(); // We now have access to the database.
-
-        ContentValues values = new ContentValues();
-        Neighborhood neighborhood = Neighborhood.instance;
-        values.put(COL_PLACE_NAME, name);
-        values.put(COL_DESC, desc);
-        values.put(COL_ADDRESS, address);
-        values.put(COL_FAVE, fave);
-        values.put(COL_TYPE, type);
-        values.put(COL_RATING, rating);
-//        values.put(COL_IMAGE, image);
-
-        db.insert(NEIGHBORHOOD_TABLE_NAME, null, values);
-        db.close();
     }
 
     public Cursor getNeighborhoodList() {
@@ -172,6 +156,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         return cursor.getInt(cursor.getColumnIndex(COL_FAVE));
     }
 
+    // Gets only database rows that were marked as favorites (or can get ones that were not marked as favorites).
     public Cursor getFavorites(int fave) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -190,6 +175,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    // Change whether the favorite column of an item is marked as a favorite (1) or not a favorite (0).
     public void updateFavoriteByID (int id, int newValue){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -228,6 +214,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         return cursor.getInt(cursor.getColumnIndex(COL_RATING));
     }
 
+    // Update the item's rating column.
     public void updateRatingByID (int id, float newValue){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -265,22 +252,7 @@ public class NeighborhoodSQLOpenHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         return cursor.getString(cursor.getColumnIndex(COL_TYPE));
     }
-//
-//    public int getImageByID(int id) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        Cursor cursor = db.query(NEIGHBORHOOD_TABLE_NAME,
-//                new String[]{COL_IMAGE},
-//                COL_ID + " = ?",
-//                new String[]{String.valueOf(id)},
-//                null,
-//                null,
-//                null,
-//                null );
-//
-//        cursor.moveToFirst();
-//        return cursor.getInt(cursor.getColumnIndex(COL_IMAGE));
-//    }
+
 
     public Cursor searchPlaces(String query){
 //        String[] splitQuery = query.split(" ");

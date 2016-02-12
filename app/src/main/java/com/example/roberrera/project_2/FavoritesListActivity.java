@@ -75,7 +75,7 @@ public class FavoritesListActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the action bar.
         getMenuInflater().inflate(R.menu.menu_fromfaves, menu);
 
         return super.onCreateOptionsMenu(menu);
@@ -83,7 +83,7 @@ public class FavoritesListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here.
+        // Handle action bar item clicks.
         switch (item.getItemId()) {
 
             case R.id.action_home2:

@@ -32,7 +32,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         final NeighborhoodSQLOpenHelper helper = NeighborhoodSQLOpenHelper.getInstance(DetailsActivity.this);
 
-        // Set the activity title based on which item we're viewing.
+        // Set the activity title based on the name of the item we're viewing.
         if (helper.getLocationNameByID(id) != null) {
             setTitle(helper.getLocationNameByID(id));
         } else {
@@ -54,8 +54,7 @@ public class DetailsActivity extends AppCompatActivity {
         mAddress.setText(placeAddress);
         mDesc.setText(placeDesc);
         mType.setText(placeType);
-        // Gets the stored rating for the current place.
-        mRating.setRating(helper.getRatingByID(id));
+        mRating.setRating(helper.getRatingByID(id));  // Gets the stored rating for the current place.
 
 
         // Check if the place is also in the favorites list, and show the proper heart icon in response.
@@ -90,6 +89,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        // Change the star rating of a database item.
         mRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
