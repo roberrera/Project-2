@@ -1,4 +1,4 @@
-# Project 2: Neighborhood Guide App (aka Places! 1.0)
+# Places! 1.0
 
 _Places!_ is an Android app for searching for a, erm, nearby place. It is backed by a local SQLite database and has search enabled. The user can search for a place by name, street, or type of place (i.e. "cafe") either by typing or by voice input. Once the user has found a place they're interested in, they can tap on the custom list item to see details about that place: a full image of it, the address, and a description. There are some features that have been included in the details view of each place:
 
@@ -17,4 +17,3 @@ Enjoy!
 
 
 ![Screenshot1](https://github.com/roberrera/Project-2/blob/master/Screenshots/device-2016-02-11-233728.png)
-![Screenshot2](https://github.com/roberrera/Project-2/blob/master/Screenshots/device-2016-02-10-151651.png)
